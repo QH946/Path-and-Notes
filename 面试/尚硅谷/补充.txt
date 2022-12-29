@@ -1,0 +1,307 @@
+ 1、复杂度 
+  
+  代码从上到下没有 循环，O(1).
+  有一层循环   o(n)  
+  for（int i=1;i<=10;i++）{
+		for（）{
+		}
+  }
+ 2、数组和链表结构简单对比？（ArrayList和linkedList）
+	数组：有角标，查询快，向指定位置插入或删除，需要角标移位，效率低。需要连续内存空间。
+			长度不可变。
+	链表：没有，头指针和尾指针（内存中的位置）。不许要连续空间。查询慢（需要找指针）。
+		   插入和删除元素比数组快。
+3、数组的排序要会手写一种，写谁都行。
+	Arrays.sort（数组）-------双轴快排。
+	Arrays和Array是什么区别？ArrayList？
+4、Java的数据类型有几种？
+	2种  基本类型  引用类型：数组、对象、集合、接口
+5、二分查找（Binary Search） 折半查找
+	条件：数组是有序的才能用。
+	数组中装的是上线之后的版本号{1.0,1.1,1.2，。。。。2.1.。。。。3.1.。。。}
+	有一天从某一个版本开始之后的所有版本都出问题了，让你快速定位到最先出问题的版本。
+	给你提供一个方法 入参是版本号  返回值是boolean true出问题了，false 没问题。
+
+
+单例模式：
+	内存中只有一个实例对象。要防止多线程破坏、防止反射、反序列化。
+
+	java创建对象 你知道方式有几种？
+		4种   new、反射、反序列化、克隆
+		
+	防止new对象  构造私有，写一个公共的方法 返回对象。
+ 1、饿汉式：占用空间。线程安全。
+		public class Item{
+			
+			private static final Item i = new Item（）；
+			
+			private Item（）{
+			
+			}
+			public static Item getItem（）{
+				
+				return i；
+			}
+		
+		}
+	  static关键字： 随着类的加载而加载，优先于对象存在。
+			修饰成员、修饰方法、静态代码块、修饰内部类
+	final关键字：
+		修饰类（不能继承）、修饰成员（不能改变）、修饰方法（不能重写）
+		
+	方法重写和方法重载
+		重写：有子父类关键。剩下的一模一样。权限修饰大于等于。
+		重载：一个类中，方法相同，参数列表不同，与返回值无关。
+ 
+ 2、懒汉式: 延迟加载，内存空间占用小。但是加锁了，效率有问题了。
+	public class Item{
+			
+			private static Item i = null；
+			
+			private Item（）{
+			
+			}
+			public static synchronized Item getItem（）{
+				if（i==null）{
+					i=new Item();
+				}
+				
+				return i；
+			}
+		
+		}
+	synchronized关键字：
+		怎么用？同步方法、同步代码块。
+		synchronized（锁）{
+			需要加锁的内容
+		}
+	对象锁和类锁。
+ 
+ 3、双重检查锁：基于懒汉式进行了优化
+ public class Item{
+			
+			private static volatile Item i = null；
+			
+			private Item（）{
+			  if (i !=null){
+          throw   new IllegalArgumentException("Cannot reflectively create 已存在 objects");
+        }
+			}
+			public static  Item getItem（）{
+				if（i==null）{//这个检查是提高效率的
+					synchronized（Item.class）{
+						if（i==null）{ //这个检查是防止线程安全问题的。
+							i=new Item();
+						}
+					}
+				}
+				
+				return i；
+			}
+		
+		}
+	锁的作用范围。
+	volatile关键字：JMM三大特性，也是产生安全问题的原因。
+			原子性、可见性、有序性
+		volatile 可见性、有序性
+	线程安全 是指令级别。
+		int i = 0；
+		i++；
+			i+1； 
+			i=i（2）
+			
+	i=new Item(); 1、堆内存开辟空间
+				  2、对象初始化 属性赋值初始化
+				  3、堆地址给栈
+	volatile：防止指令重排序。
+ 4、静态内部类： 程序员自己能想出来的 最牛单例
+public class Item{
+	private Item（）{
+			  if (i !=null){
+          throw   new IllegalArgumentException("Cannot reflectively create 已存在 objects");
+        }
+			}
+	public static  Item getItem（）{
+				return InnerItem.i；
+			}
+			
+	 static class InnerItem{
+		private static Item i = new Item（）；
+	 }
+	
+	}
+	没加锁，线程安全，延迟加载的目的。
+	内部类不使用不加载。
+ 
+ 
+ 5、枚举：  解决线程安全、反射、反序列化。 上面那些 都不行。
+	public enum Item{
+		ITEM;
+		public static  Item getItem（）{
+				return ITEM;
+			}
+	
+	}
+	反序列化，也是JDK开发人员 在底层源码就给解决了。
+	
+	
+代理模式：
+	静态代理和动态有什么区别？
+		静态：只为单一目标服务
+		动态：服务目标不单一
+   目标对象（被代理对象）、代理对象（帮别人干活的那个）
+	
+	JDK proxy类：
+		必须实现接口，基于接口实现。
+		代理对象把被代理对象的所有实现的接口，都给实现了一遍，然后可以重写接口方法，就知道
+		被代理对象想做什么事了。
+	CGlib：第三方的
+		类不能被final修饰，基于继承，代理对象把被代理对象当做父类了。重写父类方法。
+	
+	AOP底层实现：默认使用JDK的。如果满足不了，自动切换成CGlib。
+	
+java基础篇：
+
+1、多态：一种事物，有多种表现形式。父类引用指向子类对象。接口和接口的实现类。
+			UserService  ------实现类。
+2、接口与抽象类的区别
+	接口：默认 public ，方法都是抽象的。1.8 默认方法，只有一个。多实现。
+	抽象类：只要有一个方法是抽象的，这个类就是抽象。可以非抽象方法。单继承。 
+3、深拷贝与浅拷贝的理解  也叫 深克隆和浅克隆
+	深：地址不同，多个对象。
+	浅：引用有多个，地址相同。
+4、sleep和wait在线程里有什么区别？
+	sleep：thread类，有时间参数，不释放锁，释放线程执行权。时间到就醒。	
+	wait：object类，释放锁，释放，必须通过notify或notifyAll唤醒。
+	
+5、==和equals区别
+	==：
+		基本类型比较的是值，引用类型比较地址。
+	equals：object方法，默认和==一样。如果重写了 按照你自己重写的规则来。
+		String类型 先比较地址相同，不同比较类型，类型相同比较长度，长度比较内容
+  native关键字：调用系统本地资源的。
+
+
+6、String buffer和String builder区别
+作用一样，字符串缓冲区。做拼接。
+	线程：buffer安全，加锁了  builder不安全，没加上。
+	效率：buffer低  builder高。
+	
+	buffer  a= “abc”;
+	 a.append("d").append("e");
+	 a.append("f");
+7、final、finally、finalize
+		finally：必须和try结合使用，不能单独和catch使用，最终要执行的代码 放到finally块中。
+	
+	finalize ：一个方法，object的，垃圾回收调用。
+
+8、HashMap底层
+	数据结构：1.8 数组node<K,V>数组+链表+红黑树
+	1、初始化长度：16  负载因子 0.75  可以自己指定。扩容 长度*负载因子=扩容点。
+	2、put方法流程
+	3、扩容。
+	4、hash碰撞：形成链表的条件
+	5、什么时候变成树：数组长度大于64并且链表长度大于8
+	6、树转链表：树的高度小于6 转链表。
+	7、为什么要转树？ 当链表长度大于8 查询效率低于红黑树了。
+	
+9、HashMap和HashTable区别
+	HashMap：线程不安全，效率高，可以存null的key，只能有一个，null值，可以多个。
+		没有contains方法  contains 的key  和value的方法。
+		初始化长度 默认16，扩容  2的整数倍，2倍扩容
+	HashTable：线程安全，效率低，不可以存null的key，null值。
+		有contains方法  contains 的key  和value的方法
+		默认 11，没要求2的整数倍，2倍+1
+
+10、集合  在遍历的时候 进行 remove（），有问题吗？
+			并发修改异常。
+
+
+Java高级篇
+	回收算法
+
+	垃圾回收器   7种  新生代带 3种，老年代3种（标记清除CMS垃圾回收器）  1种全局 G1
+	XMS XMX 
+	
+	A引用了B  B引用C
+
+<web-app>
+
+	配置一个 spring的监听器
+	监听spring的配置文件 classPath：/spring/application.xml
+
+
+</web-app>
+
+group by  能进行数据的去重  having分组的条件
+
+distinct 关键字 可以去重
+	
+使用聚集函数进行计算：sum max min avg count
+
+计算所有的表达式； IF 判断表达式	
+MySQL的事务	
+MyISAM和InnoDB的区别InnoDB：支持事务      默认的   5.1开始支持   5.5.5默认
+MyISAM：不支持事务
+
+怎么创建一个索引：可以直接sqlYog  creat index（索引字段）
+
+怎么判断一个SQL是否使用索引：explain 
+
+bug复现、测试服务器，查生产库
+
+边缘测试问题。
+
+
+null指针。
+
+
+GET 和POST 的区别？
+	get：参数在url、参数大小有限制 1Kb。参数相对不安全。不能进行资源上传。
+	post：参数可以在url上，请求体。可以提交大参数，相对安全。能进行资源上传。
+
+Cookie 和Session 的区别？
+	cookie：存在客户端，容量4kb，存string，jsessionId。
+	session：服务端，容量和内存有关，依赖于cookie的。
+
+你项目开发用过什么设计模式吗？
+	1、单例，线程池，使用spring的单例
+	2、模板模式
+	3、策略模式
+		list<接口>  接口有多个实现类，每个实现类的方法内容不一
+	
+spring解决循环依赖使用的是  三级缓存 提前暴露形式。
+
+
+
+Spring 的事务管理：
+	项目中的事务是怎么控制的？在哪控制？
+	使用AOP实现的事务控制，在业务层，一个业务可能会调用多个操作数据库的方法。
+	1、编程式事务控制--------不用
+		  写java代码，每个方法都需要写代码 
+	2、声明式事务控制：
+		注解：@Transactional
+		配置：写配置文件
+			AOP 切点
+				切面----通知----事务传播行为
+mybatis常用的标签：
+	<mapper nameSapce="接口的全类名">
+	 <resultMap id =   type = >    映射  表和实体类属性。  关联关系配置。
+		<id>
+		<result>
+		<c。。。>
+	 resultType----标签中的属性，指定返回值类型。java.lang.String
+	
+	</mapper>
+	
+	
+feign和openfeign区别？
+	OpenFeign  增加了springmvc注解的支持。
+
+
+
+
+	
+	
+	
+
