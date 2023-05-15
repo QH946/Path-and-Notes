@@ -105,6 +105,8 @@ JVM 内存结构规定了 Java 在运行过程中内存申请、分配、管理�
 
 线程运行诊断：
 
+![image-20230101174348390](./assets/image-20230101174348390.png)
+
 * 定位：jps 定位进程 ID
 * jstack 进程 ID：用于打印出给定的 Java 进程 ID 或 core file 或远程调试服务的 Java 堆栈信息
 

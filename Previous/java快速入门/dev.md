@@ -601,7 +601,7 @@ public class Test1 {
 
 ****
 
-
+ 
 
 ### 参数
 
@@ -988,7 +988,7 @@ Java 是一种面向对象的高级编程语言
 
 两个概念：类和对象
 
-* 类：相同事物共同特征的描述，类只是学术上的一个概念并非真实存在的，只能描述一类事物
+* 类：相同事物共同特征的描述，类只是学术上的一个概念并非真实存在的，只能描述一类事物(类是对象的抽象)
 * 对象：是真实存在的实例， 实例 == 对象，**对象是类的实例化**
 * 结论：有了类和对象就可以描述万千世界所有的事物，必须先有类才能有对象
 
@@ -1726,7 +1726,7 @@ abstract class Template{
 修饰符 class 实现类名称 implements 接口1,接口2,接口3,....{
 
 }
-修饰符 interface 接口名 extend 接口1,接口2,接口3,....{
+修饰符 interface 接口名 extends 接口1,接口2,接口3,....{
     
 }
 ```
@@ -1762,7 +1762,7 @@ abstract class Template{
    interface Person{
        void run();
    }
-   //可以直接 interface Person extend Food,
+   //可以直接 interface Person extends Food,
    //然后 class Student implements Person 效果一样
    ```
 
@@ -1900,7 +1900,7 @@ public class PolymorphicDemo {
         go(c);
         go(new Dog);   
     }
-    //用 Dog或者Cat 都没办法让所有动物参与进来，只能用Anima
+    //用 Dog或者Cat 都没办法让所有动物参与进来，只能用Animal
     public static void go(Animal d){}
     
 }
@@ -4650,7 +4650,7 @@ public static void main(String[] args){
         System.out.println(entry.getKey() + "=" + entry.getValue());
 
     }
-    //(3) Lamda
+    //(3) Lambda
     maps.forEach((k,v) -> {
         System.out.println(k + "==>" + v);
     })
@@ -6007,7 +6007,7 @@ public static void main(String[] args) throws Exception {
     // 处理异常
   }catch(异常类型2 变量){
     // 处理异常
-  }...finall{
+  }...final{
   //资源释放
   }
   ```
