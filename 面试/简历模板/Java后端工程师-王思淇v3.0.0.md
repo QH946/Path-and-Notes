@@ -51,12 +51,12 @@ GitHub: https://github.com/QH946
 
 
 - 具备扎实的Java基础,擅长OOP编程,具备一定的抽象和解耦能力
-- 熟练使用Spring Boot,Spring MVC, Spring Data JPA, Spring Security,Vue等框架进行前后端开发熟悉使用JUC并发编程并有处理高并发业务的经验;
-- 熟练掌握Spring、 Mybatis、SpringCloud,SpringCloud alibaba技术体系(nacos、Ribbon、Feign、sentinel.gateway)及nacos集群搭建经验;熟练使用Docker,以及搭建kubernetes集群等运维经验,熟悉CI&CD有一定的devops经验
+- 熟练使用Spring Boot,Spring MVC, Spring Data JPA, Spring Security,Vue等框架进行前后端开发熟悉使用JUC并发编程并有处理高并发业务的经验
+- 熟练掌握Spring、 Mybatis、SpringCloud,SpringCloud alibaba技术体系(nacos、Ribbon、Feign、sentinel、gateway)及nacos集群搭建经验;熟练使用Docker,以及搭建kubernetes集群等运维经验,熟悉CI&CD有一定的devops经验
 - 擅长Mysql, PostgreSQL，具备数据库建模以及sql调优等实战经验
-- 具备重构经验,能够应对较为冗余的系统,有一定的架构能力;
-- 具备编写接口文档以及业务文档的能力;
-- 适应敏捷开发，具备和前端还有测试以及运维协同工作经验;
+- 具备重构经验,能够应对较为冗余的系统,有一定的架构能力
+- 具备编写接口文档以及业务文档的能力
+- 适应敏捷开发，具备和前端还有测试以及运维协同工作经验
 
 ### 工作经历
 
